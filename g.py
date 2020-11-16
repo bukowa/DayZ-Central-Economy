@@ -7,6 +7,8 @@ root = tree.getroot()
 
 basic_int = lambda x: (x.tag, int(x.text))
 basic_str = lambda x: (x.tag, x.attrib["name"].lower())
+basic_str_list = lambda x: (x.tag, [x.attrib["name"].lower()])
+
 
 CONVERT = {
     "nominal": basic_int,
@@ -18,7 +20,7 @@ CONVERT = {
     "cost": basic_int,
     "flags": lambda x: (x.tag, {kk: int(vv) for kk, vv in x.attrib.items()}),
     "category": basic_str,
-    "usage": basic_str,
+    "usage": basic_str_list,
     "tag": basic_str,
 }
 
@@ -35,8 +37,12 @@ if __name__ == '__main__':
                 conv_func = CONVERT.get(c.tag)
                 if conv_func:
                     k, v = conv_func(c)
-                    OBJECT[k] = v
-
+                    if not OBJECT.get(k):
+                        OBJECT[k] = v
+                    else:
+                        # assume it's a list
+                        OBJECT[k].extend(v)
+                        
         data.append(OBJECT)
 
     import json
