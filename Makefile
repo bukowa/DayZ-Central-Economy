@@ -1,5 +1,5 @@
-update:
-	git remote add upstream git@github.com:BohemiaInteractive/DayZ-Central-Economy.git || true
-	git fetch upstream
-	git merge upstream/master
-	
+clone:
+	git clone git@github.com:BohemiaInteractive/DayZ-Central-Economy.git ./dayz
+
+gen:
+	python g.py
