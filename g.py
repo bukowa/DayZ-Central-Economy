@@ -2,7 +2,7 @@ import xml.etree.ElementTree as ET
 
 data = []
 
-tree = ET.parse('./dayz/dayzOffline.chernarusplus/db/types.xml')
+tree = ET.parse('./dayzOffline.chernarusplus/db/types.xml')
 root = tree.getroot()
 
 basic_int = lambda x: (x.tag, int(x.text))
